@@ -4,20 +4,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import org.springframework.data.annotation.Id;
+import com.mongodb.lang.NonNull;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "player")
+
+@Document(collection = "players")
 public class Player {
 
 	// ATTRIBUTES
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; //TODO AUTOGENERATE???
+	@NonNull
+	private Integer id; //TODO AUTOGENERATE???
 
 	private String playerName;
 
@@ -33,7 +32,7 @@ public class Player {
 	public Player() {
 	}
 
-	public Player(Long id, String playerName, Date regDate) {
+	public Player( Integer id, String playerName, Date regDate) {
 		this.id = id;
 		this.playerName = addName(playerName); 
 		this.successRate = 0.0; // Should be 0 due to players has not played yet
@@ -42,11 +41,11 @@ public class Player {
 
 	// GETTERS & SETTERS
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -133,18 +132,16 @@ public class Player {
 		} else {
 			System.out.println("You LOST!");
 		}
-
+		System.out.println("dice 1 = " + dice1 + " + dice 2 = " + dice2 + " = " + sum );
+				
 		// Add a DiceRoll object to players dice roll list with obtained values
-				DiceRoll diceRoll = new DiceRoll(null, dice1, dice2, this);
+		DiceRoll diceRoll = new DiceRoll(null, dice1, dice2, this);
 		this.diceRolls.add(diceRoll);
 		
 		//Update success rate
 		this.updateSuccessRate();
 		
-		System.out.println(diceRoll.toString());
-		
 		return diceRoll;
 	}
-	
 
 }

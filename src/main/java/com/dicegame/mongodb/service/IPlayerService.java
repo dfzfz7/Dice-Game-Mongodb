@@ -15,12 +15,12 @@ public interface IPlayerService {
 	public List<Player> listPlayers();
 
 	// Get player by id
-	public Player getPlayer(Long id);
+	public Player getPlayer(Integer id);
 
 	// Update player
 	public Player updatePlayer(Player player);
 
 	// Delete player by id
-	public void deletePlayer(Long id);
+	public void deletePlayer(Integer id);
 
 }

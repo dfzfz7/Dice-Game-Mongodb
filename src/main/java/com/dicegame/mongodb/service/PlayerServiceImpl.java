@@ -29,7 +29,7 @@ public class PlayerServiceImpl implements IPlayerService {
 
 	// Get player by id
 	@Override
-	public Player getPlayer(Long id) {
+	public Player getPlayer(Integer id) {
 		return iPlayerDAO.findById(id).get();
 	}
 
@@ -41,7 +41,7 @@ public class PlayerServiceImpl implements IPlayerService {
 
 	// Delete player by id
 	@Override
-	public void deletePlayer(Long id) {
+	public void deletePlayer(Integer id) {
 		iPlayerDAO.deleteById(id);
 	}
 

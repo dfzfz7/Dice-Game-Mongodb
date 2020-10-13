@@ -1,5 +1,6 @@
 package com.dicegame.mongodb.controller;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,15 @@ public class PlayerController {
 	// Create player
 	@PostMapping("/players")
 	public String createPlayer(@RequestBody Player player) {
+		// If id is null set automatically // Player asssignId() method in Player class TODO
+		if(player.getId() == null) {
+			// Find last player added and adds 1 to its id 
+			List<Player> list = playerServiceImpl.listPlayers();
+			Player lastPlayer = list.get(list.size()-1);
+			Integer id = lastPlayer.getId()+1; 
+			player.setId(id);
+		}
+		
 		// If name is null set name as Anonymous
 		if(player.getPlayerName() == null) {
 			player.setPlayerName("Anonymous");
@@ -41,6 +51,10 @@ public class PlayerController {
 		if(player.getSuccessRate() == null) {
 			player.setSuccessRate(0.0);
 		}
+		
+		//Initialize empty dice rolls list 
+		player.setDiceRoll(new ArrayList<DiceRoll>());
+		
 		// Create new player
 		playerServiceImpl.createPlayer(player);
 		return player.getPlayerName() + " has been created";
@@ -54,13 +68,13 @@ public class PlayerController {
 
 	// Get player by id
 	@GetMapping("/players/{id}")
-	public Player getPlayer(@PathVariable(name = "id") Long id) {
+	public Player getPlayer(@PathVariable(name = "id") Integer id) {
 		return playerServiceImpl.getPlayer(id);
 	}
 
 	// Update player by id
 	@PutMapping("/players/{id}")
-	public String updatePlayer(@PathVariable(name = "id") Long id, @RequestBody Player player) {
+	public String updatePlayer(@PathVariable(name = "id") Integer id, @RequestBody Player player) {
 		Player playerToUpdate = playerServiceImpl.getPlayer(id);
 		// If name is modified set name
 		if(player.getPlayerName() !=null) {
@@ -73,7 +87,7 @@ public class PlayerController {
 
 	// Get dice rolls from a player as list
 	@GetMapping("/players/{id}/games")
-	public List<DiceRoll> getListDiceRolls(@PathVariable(name = "id") Long id) {
+	public List<DiceRoll> getListDiceRolls(@PathVariable(name = "id") Integer id) {
 		Player player = playerServiceImpl.getPlayer(id);
 		return player.getDiceRoll();
 	}
@@ -109,7 +123,7 @@ public class PlayerController {
 
 	// Delete player by id
 	@DeleteMapping("/players/{id}")
-	public String deletePlayer(@PathVariable(name = "id") Long id) {
+	public String deletePlayer(@PathVariable(name = "id") Integer id) {
 		// In order to delete Player:
 		// Player does not have to have dice rolls 
 		// if not error 500 will appear

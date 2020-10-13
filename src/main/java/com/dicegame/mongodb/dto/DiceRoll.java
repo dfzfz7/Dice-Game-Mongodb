@@ -1,19 +1,20 @@
 package com.dicegame.mongodb.dto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.mongodb.lang.NonNull;
 //import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Document(collection = "diceRoll")
+@Document(collection = "diceRolls")
 public class DiceRoll {
 
 	// ATTRIBUTES
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; //AUTOGENERATE???
+	@NonNull
+	private Integer id; //AUTOGENERATE???
 
 	private int dice1;
 
@@ -22,14 +23,14 @@ public class DiceRoll {
 	private boolean won;
 
 	// Entities relationship - Many to one 
-	private Long player_id;
+	private Integer player_id;
 
 	// CONSTRUCTORS
 
 	public DiceRoll() {
 	}
 
-	public DiceRoll(Long id, int dice1, int dice2, Player player) {
+	public DiceRoll(Integer id, int dice1, int dice2, Player player) {
 		this.id = id; 
 		this.dice1 = dice1;
 		this.dice2 = dice2;
@@ -39,11 +40,11 @@ public class DiceRoll {
 
 	// GETTERS & SETTERS
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -71,11 +72,11 @@ public class DiceRoll {
 		this.won = won;
 	}
 
-	public Long getPlayer() {
+	public Integer getPlayer() {
 		return player_id;
 	}
 
-	public void setPlayer(Long player) {
+	public void setPlayer(Integer player) {
 		this.player_id = player;
 	}
 

@@ -15,12 +15,12 @@ public interface IDiceRollService {
 	public List<DiceRoll> listDiceRolls();
 
 	// Get dice roll by id
-	public DiceRoll getDiceRoll(Long id);
+	public DiceRoll getDiceRoll(Integer id);
 
 	// Update dice roll
 	public DiceRoll updateDiceRoll(DiceRoll diceRoll);
 
 	// Delete dice roll by id
-	public void deleteDiceRoll(Long id);
+	public void deleteDiceRoll(Integer id);
 
 }

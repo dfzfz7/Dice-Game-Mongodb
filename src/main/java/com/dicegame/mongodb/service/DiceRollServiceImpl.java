@@ -29,7 +29,7 @@ public class DiceRollServiceImpl implements IDiceRollService {
 
 	// Get dice roll by id
 	@Override
-	public DiceRoll getDiceRoll(Long id) {
+	public DiceRoll getDiceRoll(Integer id) {
 		return iDiceRollDAO.findById(id).get();
 	}
 
@@ -41,7 +41,7 @@ public class DiceRollServiceImpl implements IDiceRollService {
 
 	// Delete dice roll by id
 	@Override
-	public void deleteDiceRoll(Long id) {
+	public void deleteDiceRoll(Integer id) {
 		iDiceRollDAO.deleteById(id);
 	}
 
